@@ -9,6 +9,5 @@
 #include <unistd.h>
 
 int conf_file_exists(char *);
-
-void profit(float , float , float )
+void profit(float , float , float );
 
