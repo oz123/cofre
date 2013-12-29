@@ -1,3 +1,4 @@
+/* vim: set expandtab sts=2 ts=2 sw=2 ai: */
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +8,7 @@
  * a rectangle using command line arguments
  */
 void print_usage(){
-    printf("Usage: rectangle [ap] -l num -b num\n");
+  printf("Usage: rectangle [ap] -l num -b num\n");
 }
 
 int main(int argc, char *argv[]) {
