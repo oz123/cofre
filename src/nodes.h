@@ -1,0 +1,1 @@
+/* nodes can be implemented as structs */

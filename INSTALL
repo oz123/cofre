@@ -1,0 +1,11 @@
+# on Debian based systems
+
+apt-get install libsqlite3-dev libtomcrypt-dev 
+
+git clone  https://github.com/ndevilla/iniparser.git 
+
+make
+make check
+make install
+
+
