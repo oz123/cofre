@@ -39,6 +39,6 @@ So the goals of this project is to learn:
 If everything goes well, a working software will arise and more knowledge 
 will be acquired. 
 
-[python-pwman]: https://github.com/pwman3/pwman3
+[python-pwman3]: https://github.com/pwman3/pwman3
 [c-pwman]: http://pwman.sourceforge.net/
 
