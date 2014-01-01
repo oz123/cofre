@@ -4,67 +4,56 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "cofre.h"
-/** Program to calculate the area and perimeter of 
- * a rectangle using command line arguments
- */
-void print_usage(){
-  printf("Usage: rectangle [ap] -l num -b num\n");
-}
+#include "argparse.h"
 
-int main(int argc, char *argv[]) {
-    int opt= 0;
-    int area = -1, perimeter = -1, breadth = -1, length =-1;
-    
-    //Specifying the expected options
-    //The two options l and b expect numbers as argument
-    static struct option long_options[] = {
-        {"area",      no_argument,       0,  'a' },
-        {"perimeter", no_argument,       0,  'p' },
-        {"length",    required_argument, 0,  'l' },
-        {"breadth",   required_argument, 0,  'b' },
-        {0,           0,                 0,  0   }
+
+static const char *const usage[] = {
+    "test_argparse [options] [[--] args]",
+    NULL,
+};
+
+
+int main(int argc, const char **argv)
+{
+    int force = 0;
+    int test = 0;
+    int num = 0;
+    const char *path = NULL;
+    int perms = 0;
+    struct argparse_option options[] = {
+        OPT_HELP(),
+        OPT_BOOLEAN('f', "force", &force, "force to do"),
+        OPT_BOOLEAN('t', "test", &test, "test only"),
+        OPT_STRING('p', "path", &path, "path to read"),
+        OPT_INTEGER('n', "num", &num, "selected num"),
+        OPT_END(),
     };
 
-    int long_index =0;
-    while ((opt = getopt_long_only(argc, argv,"", 
-                   long_options, &long_index )) != -1) {
-        switch (opt) {
-             case 'a' : area = 0;
-                 break;
-             case 'p' : perimeter = 0;
-                 break;
-             case 'l' : length = atoi(optarg); 
-                 break;
-             case 'b' : breadth = atoi(optarg);
-                 break;
-             default: print_usage(); 
-                 exit(EXIT_FAILURE);
+    struct argparse argparse;
+    argparse_init(&argparse, options, usage, 0);
+    
+    argc = argparse_parse(&argparse, argc, argv);
+    if (argc < 2) {
+        argparse_usage(&argparse);
+    }
+    if (force != 0)
+        printf("force: %d\n", force);
+    if (test != 0)
+        printf("test: %d\n", test);
+    if (path != NULL)
+        printf("path: %s\n", path);
+    if (num != 0)
+        printf("num: %d\n", num);
+    if (argc != 0) {
+        printf("argc: %d\n", argc);
+        int i;
+        for (i = 0; i < argc; i++) {
+            printf("argv[%d]: %s\n", i, *(argv + i));
         }
     }
-    if (length == -1 || breadth ==-1) {
-        print_usage();
-        exit(EXIT_FAILURE);
+    if (perms) {
+        printf("perms: %d\n", perms);
     }
-
-    // Calculate the area
-    if (area == 0) {
-        area = length * breadth;
-        printf("Area: %d\n",area);
-    }
-
-    // Calculate the perimeter
-    if (perimeter == 0) {
-        perimeter = 2 * (length + breadth);
-        printf("Perimeter: %d\n",perimeter);
-    }
-
-    /* implement main loop here */
-    //
-    if (conf_file_exists("/home/ozdeb/.cjjjsv")){
-        profit(2.0, 23.9, 23.0);
-    }
-    return 0;    
-    
-  }
-
+    return 0;
+}
 

@@ -1,7 +1,20 @@
 CC=gcc
 CFLAGS=-std=c99 -O3 -Wall 
-LIBS=-l tomcrypt -l sqlite3 -I 3rd_party/iniparser/src  -L 3rd_party/iniparser/ -l iniparser
 
+# if compiling dynamically you can run the program with 
+# LD_LIBRARY_PATH=3rd_party/argparse ./src/cofre
+LIBS=-l tomcrypt -l sqlite3 -I 3rd_party/iniparser/src  -L 3rd_party/iniparser/ -l iniparser \
+	 -I 3rd_party/argparse/  # -L 3rd_party/argparse/# -l argparse 
+
+# use this when compiling with -static
+STATIC_LIBS=-l tomcrypt -l sqlite3 -I 3rd_party/iniparser/src  -L 3rd_party/iniparser/ -l iniparser \
+	 -I 3rd_party/argparse/ -L 3rd_party/argparse/ -l argparse -lm 
+
+# altenatively you can directly link argparse.o with 
+#cofre: src/config.o 3rd_party/argparse/argparse.o
+#	$(CC) src/cofre.c $^ $(CFLAGS) $(LIBS) -o src/$@
+
+#LIBS += -lm
 
 DEPS= src/*.h
 OBJ=
@@ -12,7 +25,7 @@ OBJ=
 
 all: config.o cofre 
 
-cofre: src/config.o
+cofre: src/config.o 3rd_party/argparse/argparse.o
 	$(CC) src/cofre.c $^ $(CFLAGS) $(LIBS) -o src/$@
 
 clean:
