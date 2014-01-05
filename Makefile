@@ -4,7 +4,7 @@ CFLAGS=-std=c99 -O3 -Wall
 # if compiling dynamically you can run the program with 
 # LD_LIBRARY_PATH=3rd_party/argparse ./src/cofre
 LIBS=-l tomcrypt -l sqlite3 -I 3rd_party/iniparser/src  -L 3rd_party/iniparser/ -l iniparser \
-	 -I 3rd_party/argparse/  # -L 3rd_party/argparse/# -l argparse 
+	 -I 3rd_party/argparse/ -lm # -L 3rd_party/argparse/# -l argparse 
 
 # use this when compiling with -static
 STATIC_LIBS=-l tomcrypt -l sqlite3 -I 3rd_party/iniparser/src  -L 3rd_party/iniparser/ -l iniparser \
@@ -23,9 +23,9 @@ OBJ=
 # $^ - right side of :
 # $< is the first item in the dependencies list
 
-all: config.o cofre 
+all: driver.o config.o cofre 
 
-cofre: src/config.o 3rd_party/argparse/argparse.o
+cofre: src/config.o 3rd_party/argparse/argparse.o src/driver.o
 	$(CC) src/cofre.c $^ $(CFLAGS) $(LIBS) -o src/$@
 
 clean:
@@ -34,4 +34,5 @@ clean:
 config.o: src/config.c src/config.h
 	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@
 
-	
+driver.o: src/driver.c src/driver.h 
+	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@

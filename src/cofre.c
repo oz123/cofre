@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "cofre.h"
+#include "driver.h"
 #include "argparse.h"
 
 
@@ -54,6 +55,8 @@ int main(int argc, const char **argv)
     if (perms) {
         printf("perms: %d\n", perms);
     }
+
+    drvr_opendb("people.db");
     return 0;
 }
 
