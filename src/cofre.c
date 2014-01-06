@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "cofre.h"
-#include "driver.h"
 #include "argparse.h"
 
 
@@ -21,6 +20,8 @@ int main(int argc, const char **argv)
     int num = 0;
     const char *path = NULL;
     int perms = 0;
+    bool has_key = false;
+
     struct argparse_option options[] = {
         OPT_HELP(),
         OPT_BOOLEAN('f', "force", &force, "force to do"),
@@ -57,6 +58,13 @@ int main(int argc, const char **argv)
     }
 
     drvr_opendb("people.db");
+
+    /* has_key  is initialized as false, but inside crypto_get_key
+     * it is assigned true properlly */
+    crypto_get_key("secret", &has_key);
+
+    printf(has_key ? "true" : "false");
+    printf("\n");
     return 0;
 }
 
