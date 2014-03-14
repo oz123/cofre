@@ -31,6 +31,10 @@ OBJ=src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o \
 
 all: driver.o config.o cli.o cofre 
 
+# run tests as defined by CuTest 
+check:
+	make -C test -f Makefile
+
 #cofre: src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o
 cofre: $(OBJ)
 	$(CC) src/cofre.c $^ $(CFLAGS) $(LIBS) -o src/$@
