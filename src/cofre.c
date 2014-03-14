@@ -64,6 +64,9 @@ int main(int argc, const char **argv)
 
     printf(has_key ? "true" : "false");
     printf("\n");
+
+    cli_ui();
     return 0;
 }
+
 

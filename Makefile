@@ -22,13 +22,14 @@ STATIC_LIBS=-l tomcrypt -l sqlite3 -I 3rd_party/iniparser/src  -L 3rd_party/inip
 #LIBS += -lm
 
 DEPS= src/*.h
-OBJ=src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o
+OBJ=src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o \
+	src/cli.o
 
 # $@ - left side of :
 # $^ - right side of :
 # $< is the first item in the dependencies list
 
-all: driver.o config.o cofre 
+all: driver.o config.o cli.o cofre 
 
 #cofre: src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o
 cofre: $(OBJ)
@@ -45,3 +46,7 @@ driver.o: src/driver.c src/driver.h
 
 crypto.o: src/crypto.c src/crypto.h
 	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@
+
+cli.o: src/cli.c src/cli.h
+	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@
+
