@@ -13,7 +13,7 @@ int drvr_opendb(const char *file_name ){
    //char *zErrMsg = 0;
    int rc;
 
-   rc = sqlite3_open("test.db", &db);
+   rc = sqlite3_open(file_name, &db);
 
    if( rc ){
       fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
