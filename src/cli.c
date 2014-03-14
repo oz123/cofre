@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "cli.h"
-#define CHARSIZE 20
-
+#define RESPONSESIZE 512
 
 void cli_ui(void){
     bool loop = true ;
-    char response[CHARSIZE];
+    char response[RESPONSESIZE];
     while (loop) {
-    puts("cofre>");
-    fgets(response, CHARSIZE, stdin);
-    }
+        fputs("cofre>", stdout);
+        fgets(response, RESPONSESIZE, stdin);
+        
+    } 
 
 }
 
