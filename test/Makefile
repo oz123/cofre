@@ -29,8 +29,12 @@ STATIC_LIBS=-l tomcrypt -l sqlite3 -I ../3rd_party/iniparser/src  -L ../3rd_part
 all: build run
 
 
-build:
-	$(CC) AllTests.c CuTest.c StrUtil.c	TestCli.c
+build: ../src/driver.o
+	$(CC) AllTests.c CuTest.c StrUtil.c TestCli.c $^ $(CFLAGS) $(LIBS)
+
+		
+driver.o: src/driver.c src/driver.h 
+	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@
 
 run:
 	./a.out
