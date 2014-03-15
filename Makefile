@@ -41,7 +41,7 @@ check:
 #cofre: src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o
 #cofre: src/config.o 3rd_party/argparse/argparse.o src/driver.o src/crypto.o
 
-DEPS= driver.o crypto.o config.o cli.o
+DEPS = driver.o crypto.o config.o cli.o 3rd_party/argparse/argparse.o
 
 cofre: $(DEPS)
 	$(CC) src/cofre.c $(OBJ) $(CFLAGS) $(LIBS) -o src/$@
@@ -57,7 +57,6 @@ crypto.o: src/crypto.c src/crypto.h
 
 cli.o: src/cli.c src/cli.h
 	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@
-
 
 clean:
 	$(RM) src/cofre src/*.o 
