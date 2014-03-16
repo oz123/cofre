@@ -37,4 +37,4 @@ run:
 
 clean:
 	$(RM) test_runner
-
+	$(RM) test_db.db
