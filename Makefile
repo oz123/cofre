@@ -60,8 +60,8 @@ cli.o: src/cli.c src/cli.h
 
 clean:
 	$(RM) src/cofre src/*.o 
-	# clean 3rd party
-
+	make -C test/ -f test.mk clean
+# clean 3rd party	
 cleandeps: clean
 	make -C 3rd_party/iniparser/ clean
 	make -C 3rd_party/argparse/ clean

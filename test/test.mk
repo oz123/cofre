@@ -30,7 +30,11 @@ all: build run
 
 
 build: ../src/driver.o
-	$(CC) AllTests.c CuTest.c StrUtil.c TestCli.c $^ $(CFLAGS) $(LIBS) \
+	$(CC) AllTests.c CuTest.c TestCli.c $^ $(CFLAGS) $(LIBS) \
 		-o test_runner
 run:
 	./test_runner
+
+clean:
+	$(RM) test_runner
+

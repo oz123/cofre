@@ -10,7 +10,6 @@
         CuSuite* suite = CuSuiteNew();
         
         CuSuiteAddSuite(suite, StrUtilGetSuite());
-        CuSuiteAddSuite(suite, BtrUtilGetSuite());
     
         CuSuiteRun(suite);
         CuSuiteSummary(suite, output);
