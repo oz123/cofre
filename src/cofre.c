@@ -28,8 +28,8 @@ int main(int argc, const char **argv)
     const char *path = NULL;
     int perms = 0;
     bool has_key = false;
-    char *zErrMsg = 0;
-    sqlite3 *conn ; // malloc(sizeof(sqlite3*));
+    char *pzErrMsg = 0;
+    sqlite3 *pconn ; // malloc(sizeof(sqlite3*));
     int rc = 0;
     
     struct argparse_option options[] = {
@@ -67,10 +67,10 @@ int main(int argc, const char **argv)
         printf("perms: %d\n", perms);
     }
 
-    drvr_opendb("people.db", &conn);
+    drvr_opendb("people.db", &pconn);
     
    /* Create SQL statement */
-   char *sql = "CREATE TABLE COMPANY("  \
+   const char *sql = "CREATE TABLE COMPANY("  \
          "ID INT PRIMARY KEY     NOT NULL," \
          "NAME           TEXT    NOT NULL," \
          "AGE            INT     NOT NULL," \
@@ -78,15 +78,15 @@ int main(int argc, const char **argv)
          "SALARY         REAL );";
 
    /* Execute SQL statement */
-   rc = sqlite3_exec(conn, sql, callback, 0, &zErrMsg);
+   rc = sqlite3_exec(pconn, sql, callback, 0, &pzErrMsg);
    printf("%d\n",rc);
    if( rc != SQLITE_OK ){
-   fprintf(stderr, "SQL error: %s\n", zErrMsg);
-      sqlite3_free(zErrMsg);
+   fprintf(stderr, "SQL error: %s\n", pzErrMsg);
+      sqlite3_free(pzErrMsg);
    } else {
       fprintf(stdout, "Table created successfully\n");
    }
-   sqlite3_close(conn);
+   sqlite3_close(pconn);
     
     /* has_key  is initialized as false, but inside crypto_get_key
      * it is assigned true properlly */

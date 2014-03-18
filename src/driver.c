@@ -14,21 +14,20 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName){
  * return 0 if OK
  * return 1 if not 
  * This method should also return the cursor!*/
-int drvr_opendb(const char *file_name, sqlite3 **conn ){
+int drvr_opendb(const char *file_name, sqlite3 **ppconn ){
    int rc;
-   rc = sqlite3_open(file_name, conn);
+   rc = sqlite3_open(file_name, ppconn);
    if( rc ){
-      fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(*conn));
+      fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(*ppconn));
       exit(0);
    }else{
       fprintf(stderr, "Opened database successfully\n");
-      printf("conn %p\n" , conn);
+      printf("conn %p\n" , ppconn);
    }
    return 0;
 }
 
-/* not implemented yet!*/
-int check_tables(sqlite3 *conn){
+int check_tables(sqlite3 *pconn){
     char *zErrMsg = 0;
     int rc = 0;
     const char sql[] = "CREATE TABLE COMPANY("  \
@@ -39,7 +38,7 @@ int check_tables(sqlite3 *conn){
          "SALARY         REAL );";
 
    /* Execute SQL statement */
-   rc = sqlite3_exec(conn, sql, callback, 0, &zErrMsg);
+   rc = sqlite3_exec(pconn, sql, callback, 0, &zErrMsg);
    printf("rc is %d", rc);
    if( rc != SQLITE_OK ){
    fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -47,6 +46,6 @@ int check_tables(sqlite3 *conn){
    } else {
       fprintf(stdout, "Table created successfully\n");
    }
-   sqlite3_close(conn);
+   sqlite3_close(pconn);
    return 0;   
 }
