@@ -5,6 +5,14 @@
 #include "cofre.h"
 #include "argparse.h"
 
+static int callback(void *NotUsed, int argc, char **argv, char **azColName){
+   int i;
+   for(i=0; i<argc; i++){
+      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+   }
+   printf("\n");
+   return 0;
+}
 
 static const char *const usage[] = {
     "test_argparse [options] [[--] args]",
@@ -20,7 +28,10 @@ int main(int argc, const char **argv)
     const char *path = NULL;
     int perms = 0;
     bool has_key = false;
-
+    char *zErrMsg = 0;
+    sqlite3 *conn ; // malloc(sizeof(sqlite3*));
+    int rc = 0;
+    
     struct argparse_option options[] = {
         OPT_HELP(),
         OPT_BOOLEAN('f', "force", &force, "force to do"),
@@ -56,8 +67,27 @@ int main(int argc, const char **argv)
         printf("perms: %d\n", perms);
     }
 
-    drvr_opendb("people.db");
+    drvr_opendb("people.db", &conn);
+    
+   /* Create SQL statement */
+   char *sql = "CREATE TABLE COMPANY("  \
+         "ID INT PRIMARY KEY     NOT NULL," \
+         "NAME           TEXT    NOT NULL," \
+         "AGE            INT     NOT NULL," \
+         "ADDRESS        CHAR(50)," \
+         "SALARY         REAL );";
 
+   /* Execute SQL statement */
+   rc = sqlite3_exec(conn, sql, callback, 0, &zErrMsg);
+   printf("%d\n",rc);
+   if( rc != SQLITE_OK ){
+   fprintf(stderr, "SQL error: %s\n", zErrMsg);
+      sqlite3_free(zErrMsg);
+   } else {
+      fprintf(stdout, "Table created successfully\n");
+   }
+   sqlite3_close(conn);
+    
     /* has_key  is initialized as false, but inside crypto_get_key
      * it is assigned true properlly */
     crypto_get_key("secret", &has_key);
