@@ -27,7 +27,7 @@ int drvr_opendb(const char *file_name, sqlite3 **ppconn ){
    return 0;
 }
 
-int check_tables(sqlite3 *pconn){
+int check_tables(sqlite3 **pconn){
     char *zErrMsg = 0;
     int rc = 0;
     const char sql[] = "CREATE TABLE COMPANY("  \
@@ -38,14 +38,14 @@ int check_tables(sqlite3 *pconn){
          "SALARY         REAL );";
 
    /* Execute SQL statement */
-   rc = sqlite3_exec(pconn, sql, callback, 0, &zErrMsg);
-   printf("rc is %d", rc);
+   rc = sqlite3_exec(*pconn, sql, callback, 0, &zErrMsg);
+   printf("rc is %d\n", rc);
    if( rc != SQLITE_OK ){
    fprintf(stderr, "SQL error: %s\n", zErrMsg);
       sqlite3_free(zErrMsg);
    } else {
       fprintf(stdout, "Table created successfully\n");
    }
-   sqlite3_close(pconn);
+   sqlite3_close(*pconn);
    return 0;   
 }
