@@ -2,12 +2,12 @@ Cofre
 =====
 
 Cofre means "safe" in Portuguese. Cofre is a project to re-implement
-pwman3 again in Python. 
+pwman3 again in C. 
 
 What? 
 
-wait, I just said I am implementing a software which is already 
-written in Python in C. 
+Wait, I just said I am implementing a software which is already 
+written in Python with C. 
 Well, now you know why Cofre begins with C. 
 
 [Pwman3][python-pwman3] is quite a mature software. 
