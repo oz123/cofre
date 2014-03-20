@@ -27,7 +27,7 @@ int drvr_opendb(const char *file_name, sqlite3 **ppconn ){
    return 0;
 }
 
-int check_tables(sqlite3 **pconn){
+int drvr_check_tables(sqlite3 **pconn){
     char *zErrMsg = 0;
     int rc = 0;
     const char sql[] = "CREATE TABLE COMPANY("  \
