@@ -57,9 +57,8 @@ int main(int argc, const char **argv)
     }
 
     drvr_opendb("people.db", &pconn);
-    
-   check_tables(&pconn);
-   sqlite3_close(pconn);
+    drvr_check_tables(&pconn);
+    sqlite3_close(pconn);
     /* has_key  is initialized as false, but inside crypto_get_key
      * it is assigned true properlly */
     crypto_get_key("secret", &has_key);
