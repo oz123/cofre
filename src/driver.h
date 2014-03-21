@@ -6,8 +6,8 @@ int drvr_opendb(const char *, sqlite3 **ppconn);
 int drvr_check_tables(sqlite3 **conn);
 
 
-#define create_tbl_nodes "CREATE TABLE NODES (ID INTEGER PRIMARY KEY \
-                          AUTOINCREMENT,DATA BLOB NOT NULL";
+#define creat_nodes "CREATE TABLE NODES (ID INTEGER PRIMARY KEY \
+                     AUTOINCREMENT,DATA BLOB NOT NULL)"
 #define create_tbl_tags "CREATE TABLE TAGS \
                          (ID INTEGER PRIMARY KEY AUTOINCREMENT, \
                          DATA BLOB NOT NULL UNIQUE)";

@@ -36,9 +36,11 @@ int drvr_check_tables(sqlite3 **pconn){
          "AGE            INT     NOT NULL," \
          "ADDRESS        CHAR(50)," \
          "SALARY         REAL );";
-
+    
+   const char *create_tbl_nodes_sql = creat_nodes;
+   printf("%s\n", create_tbl_nodes_sql);
    /* Execute SQL statement */
-   rc = sqlite3_exec(*pconn, sql, callback, 0, &zErrMsg);
+   rc = sqlite3_exec(*pconn, create_tbl_nodes_sql, callback, 0, &zErrMsg);
    printf("rc is %d\n", rc);
    if( rc != SQLITE_OK ){
    fprintf(stderr, "SQL error: %s\n", zErrMsg);
