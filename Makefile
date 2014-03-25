@@ -58,10 +58,22 @@ crypto.o: src/crypto.c src/crypto.h
 cli.o: src/cli.c src/cli.h
 	$(CC) $(CFLAGS) -c $< $(LIBS) -o src/$@
 
+veryclean:	clean cleandeps
+
 clean:
 	$(RM) src/cofre src/*.o 
 	make -C test/ -f test.mk clean
+
 # clean 3rd party	
 cleandeps: clean
 	make -C 3rd_party/iniparser/ clean
 	make -C 3rd_party/argparse/ clean
+
+get_3rd_party:
+	sudo apt-get install libsqlite3-dev libtomcrypt-dev
+	git clone  https://github.com/ndevilla/iniparser.git 3rd_party/iniparser
+	git clone https://github.com/Cofyc/argparse.git 3rd_party/argparse
+
+3rd_party:
+	make -C 3rd_party/iniparser/ -f Makefile
+	make -C 3rd_party/argparse/ -f Makefile
