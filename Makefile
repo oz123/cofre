@@ -75,5 +75,7 @@ get_3rd_party:
 	git clone https://github.com/Cofyc/argparse.git 3rd_party/argparse
 
 3rd_party:
-	make -C 3rd_party/iniparser/ -f Makefile
-	make -C 3rd_party/argparse/ -f Makefile
+	make -C 3rd_party/iniparser/ 
+	make -C 3rd_party/argparse/ 
+
+.PHONY: 3rd_party
