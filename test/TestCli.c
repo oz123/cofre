@@ -8,7 +8,7 @@
 #include "CuTest.h"
 #include "../src/driver.h"
 
-sqlite3 *pconn ; // malloc(sizeof(sqlite3*));
+sqlite3 *pconn;
 #define DATA_SIZE 512
  
 void get_sqlite_data(char *out){
@@ -27,9 +27,6 @@ void get_sqlite_data(char *out){
  
     // Grab data from process execution
     fgets(out, DATA_SIZE , pf);
-    
-    // Print grabbed data to the screen.
-    //fprintf(stdout, "-%s-\n",out); 
  
     if (pclose(pf) != 0)
         fprintf(stderr," Error: Failed to close command stream \n");
@@ -47,10 +44,10 @@ char* StrToUpper(char* str) {
     }
     
 void TestStrToUpper(CuTest *tc) {
+        // char *input = "hello world";
         // This is implicit const char *input!
         // This is why it will cause segmentation fault
         // We can't change a const variable
-        //char *input = "hello world";
         char input[] = "hello world";
         char* actual = StrToUpper(input);
         char* expected = "HELLO WORLD";
