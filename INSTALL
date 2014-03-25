@@ -1,11 +1,9 @@
 # on Debian based systems
+run the following make targets:
 
-apt-get install libsqlite3-dev libtomcrypt-dev 
-
-git clone  https://github.com/ndevilla/iniparser.git 
-
+make get_3rd_party
+make 3rd_party
 make
 make check
 make install
-
 
